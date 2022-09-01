@@ -4,13 +4,15 @@ import Button from '@mui/material/Button';
 
 import { Typography } from '@mui/material';
 import Group from './components/Group';
-import './App.css';
 import CreateGroupModal from './components/CreateGroupModal';
 import CreateSectionModal from './components/CreateSectionModal';
 import useModal from './hooks/useModal';
 
+import { DUMMY_GROUPS_DATA } from './constants';
+import './App.css';
+
 function App() {
-  const [groups, setGroups] = useState([]);
+  const [groups, setGroups] = useState(DUMMY_GROUPS_DATA);
   const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
 
   const {

@@ -19,6 +19,7 @@ const CreateSectionModal = ({ open, handleClose, onSubmit }) => {
   const resetFormData = () => {
     setSectionTitle('');
     setSectionDescription('');
+    setActivationSupported(false);
   };
 
   return (
