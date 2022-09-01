@@ -10,6 +10,8 @@ import useModal from './hooks/useModal';
 
 import { DUMMY_GROUPS_DATA } from './constants';
 import './App.css';
+import CreateFieldModal from './components/CreateFieldModal';
+import { saveTemplateAsFile } from './utils';
 
 function App() {
   const [groups, setGroups] = useState(DUMMY_GROUPS_DATA);
@@ -25,6 +27,12 @@ function App() {
     isOpen: isSectionModalOpen,
     closeModal: closeSectionModal,
     openModal: openSectionModal,
+  } = useModal();
+
+  const {
+    isOpen: isFieldModalOpen,
+    closeModal: closeFieldModal,
+    openModal: openFieldModal,
   } = useModal();
 
   const addGroup = (data) => {
@@ -44,13 +52,28 @@ function App() {
     closeSectionModal();
   };
 
+  const addField = (fieldData) => {};
+
+  const handleClickDownload = () => {
+    saveTemplateAsFile('theme.json', groups);
+  };
+
   return (
     <div className="main">
       <div className="d-flex-c-s" style={{ marginBottom: 20 }}>
-        <Typography variant="h4">Theme Builder</Typography>
-        <Button variant="contained" onClick={openGroupModal}>
-          Add Group
-        </Button>
+        <Typography variant="h2" fontFamily="serif">Theme Builder</Typography>
+        <div>
+          <Button
+            variant="outlined"
+            onClick={handleClickDownload}
+            sx={{ mr: 2 }}
+          >
+            Download config file
+          </Button>
+          <Button variant="contained" onClick={openGroupModal}>
+            Add Group
+          </Button>
+        </div>
       </div>
       {groups.map((data, index) => (
         <Group
@@ -59,6 +82,9 @@ function App() {
           onAddSectionClick={() => {
             setCurrentGroupIndex(index);
             openSectionModal();
+          }}
+          onAddFieldClick={() => {
+            openFieldModal();
           }}
         />
       ))}
@@ -72,6 +98,11 @@ function App() {
         open={isSectionModalOpen}
         handleClose={closeSectionModal}
         onSubmit={addSection}
+      />
+      <CreateFieldModal
+        open={isFieldModalOpen}
+        handleClose={closeFieldModal}
+        onSubmit={addField}
       />
     </div>
   );

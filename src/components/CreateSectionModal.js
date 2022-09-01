@@ -34,7 +34,7 @@ const CreateSectionModal = ({ open, handleClose, onSubmit }) => {
           value={sectionTitle}
           onChange={(e) => setSectionTitle(e.target.value)}
           fullWidth
-          variant="standard"
+          variant="outlined"
         />
         <TextField
           autoFocus
@@ -44,7 +44,7 @@ const CreateSectionModal = ({ open, handleClose, onSubmit }) => {
           value={sectionDescription}
           onChange={(e) => setSectionDescription(e.target.value)}
           fullWidth
-          variant="standard"
+          variant="outlined"
         />
 
         <div className="d-flex-c-s">

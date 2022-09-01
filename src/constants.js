@@ -1,9 +1,14 @@
 // input, textarea, image upload, button
 // button meta -> cta text, onclick
 
-export const FIELD_TYPES = [
-  {
-    type: 'text',
+export const FIELD_TYPES = {
+  TEXT: 'text',
+  TEXTAREA: 'textarea',
+  BUTTON: 'button',
+};
+
+export const FIELD_TYPES_DATA = {
+  [FIELD_TYPES.TEXT]: {
     label: 'Text',
     properties: [
       { type: 'text', key: 'placeholder', label: 'Placeholder' },
@@ -12,13 +17,13 @@ export const FIELD_TYPES = [
     metaProperties: [
       {
         type: 'number',
+        label: 'Max Length',
         key: 'maxLength',
         defaultValue: 400,
       },
     ],
   },
-  {
-    type: 'textarea',
+  [FIELD_TYPES.TEXTAREA]: {
     label: 'Textarea',
     properties: [
       { type: 'text', key: 'placeholder', label: 'Placeholder' },
@@ -28,17 +33,19 @@ export const FIELD_TYPES = [
       {
         type: 'number',
         key: 'numRows',
+        label: 'Number of rows',
         defaultValue: 2,
       },
       {
         type: 'number',
         key: 'maxLength',
+        label: 'Max Length',
         defaultValue: 400,
       },
     ],
   },
-  {
-    type: 'button',
+  [FIELD_TYPES.BUTTON]: {
+    type: FIELD_TYPES.BUTTON,
     label: 'Button',
     properties: [
       { type: 'text', key: 'ctaText', label: 'CTA Text' },
@@ -46,7 +53,7 @@ export const FIELD_TYPES = [
     ],
     metaProperties: [],
   },
-];
+};
 
 export const DUMMY_GROUPS_DATA = [
   {

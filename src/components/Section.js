@@ -10,7 +10,7 @@ const Section = ({
   onAddFieldClick = noop,
 }) => {
   return (
-    <Box sx={{ mb: 2 }}>
+    <Box sx={{ mb: 2 }} style={{ border: 'solid 1px #ccc', padding: 8, borderRadius: 2 }}>
       <div className="d-flex-c-s">
         <div>
           <Typography variant="h6">{title}</Typography>

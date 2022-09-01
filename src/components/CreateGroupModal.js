@@ -26,7 +26,7 @@ const CreateGroupModal = ({ open, handleClose, onSubmit }) => {
           value={groupName}
           onChange={(e) => setGroupName(e.target.value)}
           fullWidth
-          variant="standard"
+          variant="outlined"
         />
       </DialogContent>
       <DialogActions>
