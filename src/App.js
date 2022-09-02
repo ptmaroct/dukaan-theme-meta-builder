@@ -16,6 +16,7 @@ import { saveTemplateAsFile } from './utils';
 function App() {
   const [groups, setGroups] = useState(DUMMY_GROUPS_DATA);
   const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 
   const {
     isOpen: isGroupModalOpen,
@@ -52,7 +53,27 @@ function App() {
     closeSectionModal();
   };
 
-  const addField = (fieldData) => {};
+  const addField = (fieldData) => {
+    debugger;
+    // we have current group index and current section index
+    // to add a new field we need to copy the group and section data as per current index
+    // and push the fieldData to the required section
+    let currentSection =
+      groups[currentGroupIndex].sections[currentSectionIndex];
+    currentSection.fields = [...currentSection.fields, fieldData];
+
+    let updatedSections = [...groups[currentGroupIndex].sections];
+    updatedSections[currentSectionIndex] = currentSection;
+
+    let updatedGroup = groups[currentGroupIndex];
+    updatedGroup = {
+      ...updatedGroup,
+      sections: updatedSections,
+    };
+    const newGroups = [...groups];
+    newGroups[currentGroupIndex] = updatedGroup;
+    setGroups(newGroups);
+  };
 
   const handleClickDownload = () => {
     saveTemplateAsFile('theme.json', groups);
@@ -61,7 +82,9 @@ function App() {
   return (
     <div className="main">
       <div className="d-flex-c-s" style={{ marginBottom: 20 }}>
-        <Typography variant="h2" fontFamily="serif">Theme Builder</Typography>
+        <Typography variant="h2" fontFamily="serif">
+          Theme Builder
+        </Typography>
         <div>
           <Button
             variant="outlined"
@@ -83,7 +106,8 @@ function App() {
             setCurrentGroupIndex(index);
             openSectionModal();
           }}
-          onAddFieldClick={() => {
+          onAddFieldClick={(sectionIndex) => {
+            setCurrentSectionIndex(sectionIndex);
             openFieldModal();
           }}
         />

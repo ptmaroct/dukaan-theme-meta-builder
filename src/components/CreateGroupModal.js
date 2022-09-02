@@ -33,7 +33,7 @@ const CreateGroupModal = ({ open, handleClose, onSubmit }) => {
         <Button onClick={handleClose}>Cancel</Button>
         <Button
           onClick={() => {
-            onSubmit({ name: groupName });
+            onSubmit({ title: groupName });
             setGroupName('');
           }}
         >

@@ -15,27 +15,58 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 import { FIELD_TYPES, FIELD_TYPES_DATA } from '../constants';
+import { noop } from '../utils';
 
 const CreateFieldModal = ({ open, handleClose, onSubmit }) => {
   const [type, setType] = useState(FIELD_TYPES.TEXT);
   const [label, setLabel] = useState('');
   const [properties, setProperties] = useState([]);
+  const [propertiesData, setPropertiesData] = useState({});
   const [metaProperties, setMetaProperties] = useState([]);
+  const [metaPropertiesData, setMetaPropertiesData] = useState({});
 
-  const resetFormData = () => {};
+  const resetFormData = () => {
+    setType(FIELD_TYPES.TEXT);
+    setLabel('');
+    setPropertiesData({});
+    setMetaPropertiesData({});
+  };
 
-  const renderProperties = (data) => {
+  const handleChangeProperty = (key, value, type) => {
+    if (type === 'properties') {
+      setPropertiesData((prevData) => ({ ...prevData, [key]: value }));
+    }
+    if (type === 'metaProperties') {
+      setMetaPropertiesData((prevData) => ({ ...prevData, [key]: value }));
+    }
+  };
+
+  const handleCreateField = () => {
+    const payload = {
+      type,
+      label,
+      ...propertiesData,
+      meta: { ...metaPropertiesData },
+    };
+
+    onSubmit(payload);
+    handleClose();
+    resetFormData();
+  };
+
+  const renderProperties = (data, changeHanlder = noop, type) => {
     return data.map((property) => {
       if (property.type === 'text') {
         return (
           <TextField
-            key={property.key}
-            margin="dense"
-            label={property.label}
             type="text"
+            margin="dense"
             fullWidth
             variant="outlined"
+            key={property.key}
+            label={property.label}
             sx={{ mb: 1 }}
+            onChange={(e) => changeHanlder(property.key, e.target.value, type)}
           />
         );
       }
@@ -49,6 +80,9 @@ const CreateFieldModal = ({ open, handleClose, onSubmit }) => {
             fullWidth
             variant="outlined"
             sx={{ mb: 1 }}
+            onChange={(e) =>
+              changeHanlder(property.key, Number(e.target.value), type)
+            }
           />
         );
       }
@@ -94,12 +128,18 @@ const CreateFieldModal = ({ open, handleClose, onSubmit }) => {
           sx={{ mb: 2 }}
         />
         <Typography color="black">Field Properties</Typography>
-        {renderProperties(properties)}
+        {renderProperties(properties, handleChangeProperty, 'properties')}
 
         {metaProperties.length > 0 && (
-          <Typography color="black">Meta Properties</Typography>
+          <Typography color="black" sx={{ mt: 2 }}>
+            Meta Properties
+          </Typography>
         )}
-        {renderProperties(metaProperties)}
+        {renderProperties(
+          metaProperties,
+          handleChangeProperty,
+          'metaProperties'
+        )}
       </DialogContent>
       <DialogActions>
         <Button
@@ -110,18 +150,7 @@ const CreateFieldModal = ({ open, handleClose, onSubmit }) => {
         >
           Cancel
         </Button>
-        <Button
-          onClick={() => {
-            onSubmit({
-              // title: sectionTitle,
-              // description: sectionDescription,
-              // activationSupported,
-            });
-            resetFormData();
-          }}
-        >
-          Create
-        </Button>
+        <Button onClick={handleCreateField}>Create</Button>
       </DialogActions>
     </Dialog>
   );
