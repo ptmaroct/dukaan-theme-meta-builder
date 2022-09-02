@@ -1,16 +1,29 @@
 import { Box, Button, Divider, Typography } from '@mui/material';
 import React from 'react';
 import { useAppContext } from '../context/AppProvider';
+import useModal from '../hooks/useModal';
+import ConfirmDialog from './ConfirmDialog';
 
-const Section = ({ data, index }) => {
+const Section = ({ data, index, groupIndex }) => {
   const {
     title = '',
     description = '',
     activationSupported = false,
     fields = [],
   } = data;
-  const { setCurrentSectionIndex, openConfirmModal, openFieldModal } =
+  const { setCurrentSectionIndex, openFieldModal, deleteSection } =
     useAppContext();
+
+  const {
+    isOpen: isConfirmModalOpen,
+    closeModal: closeConfirmModal,
+    openModal: openConfirmModal,
+  } = useModal();
+
+  const onDeleteSectionClick = () => {
+    deleteSection(groupIndex, index);
+    closeConfirmModal();
+  };
 
   const onAddFieldClick = () => {
     setCurrentSectionIndex(index);
@@ -46,6 +59,12 @@ const Section = ({ data, index }) => {
         <Typography key={index}>{field.label}</Typography>
       ))}
       {fields.length === 0 && <Typography color="silver">No Fields</Typography>}
+
+      <ConfirmDialog
+        open={isConfirmModalOpen}
+        handleClose={closeConfirmModal}
+        handleSubmit={onDeleteSectionClick}
+      />
     </Box>
   );
 };

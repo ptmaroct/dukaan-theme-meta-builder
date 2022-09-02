@@ -49,14 +49,18 @@ const AppProvider = ({ children }) => {
   };
 
   const deleteSection = (groupIndex, sectionIndex) => {
-    // let updatedGroup = groups[currentGroupIndex];
-    // updatedGroup = {
-    //   ...updatedGroup,
-    //   sections: [...(updatedGroup?.sections ?? []), { ...sectionData }],
-    // };
-    // const newGroups = [...groups];
-    // newGroups[currentGroupIndex] = updatedGroup;
-    // setGroups(newGroups);
+    let updatedGroup = groups[groupIndex];
+    updatedGroup = {
+      ...updatedGroup,
+      sections: [
+        ...(updatedGroup?.sections ?? []).filter(
+          (_, idx) => idx !== sectionIndex
+        ),
+      ],
+    };
+    const newGroups = [...groups];
+    newGroups[groupIndex] = updatedGroup;
+    setGroups(newGroups);
   };
 
   const addField = (fieldData) => {
@@ -91,6 +95,7 @@ const AppProvider = ({ children }) => {
     addGroup,
     deleteGroup,
     addSection,
+    deleteSection,
     addField,
     isGroupModalOpen,
     openGroupModal,

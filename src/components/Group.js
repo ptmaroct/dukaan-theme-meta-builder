@@ -19,6 +19,7 @@ const Group = ({ data: { title, sections = [] }, index }) => {
     deleteGroup(index);
     closeConfirmModal();
   };
+
   const onAddSectionClick = () => {
     setCurrentGroupIndex(index);
     openSectionModal();
@@ -43,8 +44,8 @@ const Group = ({ data: { title, sections = [] }, index }) => {
         </div>
       </div>
       <Box sx={{ mt: 2 }}>
-        {sections.map((item, index) => (
-          <Section data={item} key={index} index={index} />
+        {sections.map((item, idx) => (
+          <Section data={item} key={idx} index={idx} groupIndex={index} />
         ))}
       </Box>
       <ConfirmDialog
