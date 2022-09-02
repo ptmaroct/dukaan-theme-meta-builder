@@ -1,12 +1,24 @@
 import { Paper, Typography, Button, Box } from '@mui/material';
 import React from 'react';
 import { useAppContext } from '../context/AppProvider';
+import useModal from '../hooks/useModal';
+import ConfirmDialog from './ConfirmDialog';
 import Section from './Section';
 
 const Group = ({ data: { title, sections = [] }, index }) => {
-  const { setCurrentGroupIndex, openConfirmModal, openSectionModal } =
+  const { deleteGroup, setCurrentGroupIndex, openSectionModal } =
     useAppContext();
 
+  const {
+    isOpen: isConfirmModalOpen,
+    closeModal: closeConfirmModal,
+    openModal: openConfirmModal,
+  } = useModal();
+
+  const onDeleteGroupClick = () => {
+    deleteGroup(index);
+    closeConfirmModal();
+  };
   const onAddSectionClick = () => {
     setCurrentGroupIndex(index);
     openSectionModal();
@@ -35,6 +47,11 @@ const Group = ({ data: { title, sections = [] }, index }) => {
           <Section data={item} key={index} index={index} />
         ))}
       </Box>
+      <ConfirmDialog
+        open={isConfirmModalOpen}
+        handleClose={closeConfirmModal}
+        handleSubmit={onDeleteGroupClick}
+      />
     </Paper>
   );
 };

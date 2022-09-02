@@ -8,7 +8,6 @@ import CreateSectionModal from './components/CreateSectionModal';
 import './App.css';
 import CreateFieldModal from './components/CreateFieldModal';
 import { saveTemplateAsFile } from './utils';
-import ConfirmDialog from './components/ConfirmDialog';
 import { useAppContext } from './context/AppProvider';
 
 function App() {
@@ -17,8 +16,6 @@ function App() {
     addGroup,
     addSection,
     addField,
-    isConfirmModalOpen,
-    closeConfirmModal,
     isGroupModalOpen,
     openGroupModal,
     closeGroupModal,
@@ -70,10 +67,6 @@ function App() {
         open={isFieldModalOpen}
         handleClose={closeFieldModal}
         onSubmit={addField}
-      />
-      <ConfirmDialog
-        open={isConfirmModalOpen}
-        handleClose={closeConfirmModal}
       />
     </div>
   );

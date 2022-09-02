@@ -10,12 +10,6 @@ const AppProvider = ({ children }) => {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 
   const {
-    isOpen: isConfirmModalOpen,
-    closeModal: closeConfirmModal,
-    openModal: openConfirmModal,
-  } = useModal();
-
-  const {
     isOpen: isGroupModalOpen,
     closeModal: closeGroupModal,
     openModal: openGroupModal,
@@ -38,6 +32,10 @@ const AppProvider = ({ children }) => {
     closeGroupModal();
   };
 
+  const deleteGroup = (index) => {
+    setGroups(groups.filter((_, i) => i !== index));
+  };
+
   const addSection = (sectionData) => {
     let updatedGroup = groups[currentGroupIndex];
     updatedGroup = {
@@ -48,6 +46,17 @@ const AppProvider = ({ children }) => {
     newGroups[currentGroupIndex] = updatedGroup;
     setGroups(newGroups);
     closeSectionModal();
+  };
+
+  const deleteSection = (groupIndex, sectionIndex) => {
+    // let updatedGroup = groups[currentGroupIndex];
+    // updatedGroup = {
+    //   ...updatedGroup,
+    //   sections: [...(updatedGroup?.sections ?? []), { ...sectionData }],
+    // };
+    // const newGroups = [...groups];
+    // newGroups[currentGroupIndex] = updatedGroup;
+    // setGroups(newGroups);
   };
 
   const addField = (fieldData) => {
@@ -80,11 +89,9 @@ const AppProvider = ({ children }) => {
     currentSectionIndex,
     setCurrentSectionIndex,
     addGroup,
+    deleteGroup,
     addSection,
     addField,
-    isConfirmModalOpen,
-    openConfirmModal,
-    closeConfirmModal,
     isGroupModalOpen,
     openGroupModal,
     closeGroupModal,
