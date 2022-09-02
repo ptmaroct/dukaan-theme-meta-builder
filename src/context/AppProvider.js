@@ -88,6 +88,7 @@ const AppProvider = ({ children }) => {
 
   const contextValue = {
     groups,
+    setGroups,
     currentGroupIndex,
     setCurrentGroupIndex,
     currentSectionIndex,

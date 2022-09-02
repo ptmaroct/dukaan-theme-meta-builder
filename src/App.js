@@ -13,6 +13,7 @@ import { useAppContext } from './context/AppProvider';
 function App() {
   const {
     groups,
+    setGroups,
     addGroup,
     addSection,
     addField,
@@ -25,6 +26,19 @@ function App() {
     closeFieldModal,
   } = useAppContext();
 
+  const handleImportConfigFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = e.target.result;
+        const parsed = JSON.parse(data);
+        setGroups(parsed);
+      };
+      reader.readAsText(file);
+    }
+  };
+
   const handleClickDownload = () => {
     saveTemplateAsFile('theme.json', groups);
   };
@@ -36,6 +50,15 @@ function App() {
           Theme Builder
         </Typography>
         <div>
+          <Button variant="outlined" sx={{ mr: 2 }} component="label">
+            Import config file
+            <input
+              hidden
+              accept="application/json"
+              type="file"
+              onChange={handleImportConfigFile}
+            />
+          </Button>
           <Button
             variant="outlined"
             onClick={handleClickDownload}

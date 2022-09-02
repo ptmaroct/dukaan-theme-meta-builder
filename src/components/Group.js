@@ -26,7 +26,7 @@ const Group = ({ data: { title, sections = [] }, index }) => {
   };
 
   return (
-    <Paper className="p24" sx={{ mb: 2 }}>
+    <Paper className="p24" sx={{ mb: 2 }} elevation={0}>
       <div className="d-flex-c-s">
         <Typography variant="h4">{title}</Typography>
         <div>
