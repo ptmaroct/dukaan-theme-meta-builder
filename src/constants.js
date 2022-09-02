@@ -5,6 +5,7 @@ export const FIELD_TYPES = {
   TEXT: 'text',
   TEXTAREA: 'textarea',
   BUTTON: 'button',
+  IMAGE: 'image',
 };
 
 export const FIELD_TYPES_DATA = {
@@ -45,12 +46,16 @@ export const FIELD_TYPES_DATA = {
     ],
   },
   [FIELD_TYPES.BUTTON]: {
-    type: FIELD_TYPES.BUTTON,
     label: 'Button',
     properties: [
       { type: 'text', key: 'ctaText', label: 'CTA Text' },
       { type: 'text', key: 'link', label: 'Link' },
     ],
+    metaProperties: [],
+  },
+  [FIELD_TYPES.IMAGE]: {
+    label: 'Image',
+    properties: [],
     metaProperties: [],
   },
 };

@@ -129,7 +129,9 @@ const CreateFieldModal = ({ open, handleClose, onSubmit }) => {
           variant="outlined"
           sx={{ mb: 2 }}
         />
-        <Typography color="black">Field Properties</Typography>
+        {properties.length > 0 && (
+          <Typography color="black">Field Properties</Typography>
+        )}
         {renderProperties(properties, handleChangeProperty, 'properties')}
 
         {metaProperties.length > 0 && (
