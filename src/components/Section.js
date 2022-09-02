@@ -1,15 +1,22 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import React from 'react';
-import { noop } from '../utils';
+import { useAppContext } from '../context/AppProvider';
 
-const Section = ({
-  title = '',
-  description = '',
-  index,
-  activationSupported = false,
-  fields = [],
-  onAddFieldClick = noop,
-}) => {
+const Section = ({ data, index }) => {
+  const {
+    title = '',
+    description = '',
+    activationSupported = false,
+    fields = [],
+  } = data;
+  const { setCurrentSectionIndex, openConfirmModal, openFieldModal } =
+    useAppContext();
+
+  const onAddFieldClick = () => {
+    setCurrentSectionIndex(index);
+    openFieldModal();
+  };
+
   return (
     <Box
       sx={{ mb: 2 }}
@@ -20,16 +27,25 @@ const Section = ({
           <Typography variant="h6">{title}</Typography>
           <Typography variant="caption">{description}</Typography>
         </div>
-        <Button variant="outlined" onClick={() => onAddFieldClick(index)}>
-          Add Field
-        </Button>
+        <div>
+          <Button
+            variant="outlined"
+            color="error"
+            sx={{ mr: 2 }}
+            onClick={openConfirmModal}
+          >
+            Delete Section
+          </Button>
+          <Button variant="outlined" onClick={onAddFieldClick}>
+            Add Field
+          </Button>
+        </div>
       </div>
-      <Typography style={{ textDecoration: 'underline' }} sx={{ mt: 2, mb: 2 }}>
-        FIELDS
-      </Typography>
+      <Divider sx={{ mb: 2, mt: 2 }} />
       {fields.map((field, index) => (
         <Typography key={index}>{field.label}</Typography>
       ))}
+      {fields.length === 0 && <Typography color="silver">No Fields</Typography>}
     </Box>
   );
 };

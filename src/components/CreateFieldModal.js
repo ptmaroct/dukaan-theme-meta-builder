@@ -91,7 +91,9 @@ const CreateFieldModal = ({ open, handleClose, onSubmit }) => {
 
   useEffect(() => {
     setProperties(FIELD_TYPES_DATA[type].properties);
+    setPropertiesData({});
     setMetaProperties(FIELD_TYPES_DATA[type].metaProperties);
+    setMetaPropertiesData({});
   }, [type]);
 
   return (
