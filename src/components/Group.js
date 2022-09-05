@@ -1,4 +1,4 @@
-import { Paper, Typography, Button, Box } from '@mui/material';
+import { Paper, Typography, Button, Box, Stack } from '@mui/material';
 import React from 'react';
 import { useAppContext } from '../context/AppProvider';
 import useModal from '../hooks/useModal';
@@ -28,7 +28,14 @@ const Group = ({ data: { title, sections = [] }, index }) => {
   return (
     <Paper className="p24" sx={{ mb: 2 }} elevation={0}>
       <div className="d-flex-c-s">
-        <Typography variant="h4">{title}</Typography>
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Typography variant="h4">{title}</Typography>
+          <div>
+            <Button variant="outlined" size="small">
+              Edit
+            </Button>
+          </div>
+        </Stack>
         <div>
           <Button
             variant="outlined"

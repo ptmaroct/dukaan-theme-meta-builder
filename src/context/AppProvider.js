@@ -8,6 +8,8 @@ const AppProvider = ({ children }) => {
   const [groups, setGroups] = useState(DUMMY_GROUPS_DATA);
   const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [updateData, setUpdateData] = useState(null);
 
   const {
     isOpen: isGroupModalOpen,
@@ -30,6 +32,12 @@ const AppProvider = ({ children }) => {
   const addGroup = (data) => {
     setGroups((prevState) => [...prevState, { ...data }]);
     closeGroupModal();
+  };
+
+  const updateGroup = (groupIndex, data) => {
+    const updatedGroups = [...groups];
+    updatedGroups[groupIndex] = { ...updatedGroups[groupIndex], ...data };
+    setGroups(groups);
   };
 
   const deleteGroup = (index) => {
@@ -107,6 +115,11 @@ const AppProvider = ({ children }) => {
     isFieldModalOpen,
     openFieldModal,
     closeFieldModal,
+    isEditMode,
+    setIsEditMode,
+    updateData,
+    setUpdateData,
+    updateGroup,
   };
 
   return (
