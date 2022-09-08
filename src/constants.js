@@ -62,7 +62,7 @@ export const FIELD_TYPES_DATA = {
 
 export const DUMMY_GROUPS_DATA = [
   {
-    title: 'Header UI',
+    title: 'Demo header seaction',
     key: 'header-ui',
     sections: [
       {
@@ -128,5 +128,4 @@ export const DUMMY_GROUPS_DATA = [
     ],
   },
   { title: 'Hero', key: 'hero-ui', sections: [] },
-  { title: 'Footer', key: 'footer-ui', sections: [] },
 ];

@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 
-import { Typography } from '@mui/material';
+import { Card, Stack, Typography } from '@mui/material';
 import Group from './components/Group';
 import CreateGroupModal from './components/CreateGroupModal';
 import CreateSectionModal from './components/CreateSectionModal';
@@ -72,9 +72,23 @@ function App() {
         </div>
       </div>
 
-      {groups.map((data, index) => (
-        <Group data={data} key={index} index={index} />
-      ))}
+      <Stack direction="row" gap={2}>
+        <div style={{ flex: 2 }}>
+          {groups.map((data, index) => (
+            <Group data={data} key={index} index={index} />
+          ))}
+        </div>
+        <Card
+          style={{
+            padding: 8,
+            maxHeight: '70vh',
+            overflow: 'scroll',
+            flex: 1,
+          }}
+        >
+          <pre>{JSON.stringify(groups, null, 2)}</pre>
+        </Card>
+      </Stack>
 
       <CreateGroupModal
         open={isGroupModalOpen}
