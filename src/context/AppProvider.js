@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { DUMMY_GROUPS_DATA } from '../constants';
-import useModal from '../hooks/useModal';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { DUMMY_GROUPS_DATA } from "../constants";
+import useModal from "../hooks/useModal";
 
 const AppContext = createContext({});
 
@@ -31,13 +31,14 @@ const AppProvider = ({ children }) => {
 
   const addGroup = (data) => {
     setGroups((prevState) => [...prevState, { ...data }]);
+    setIsEditMode(!isEditMode);
     closeGroupModal();
   };
 
   const updateGroup = (groupIndex, data) => {
     const updatedGroups = [...groups];
     updatedGroups[groupIndex] = { ...updatedGroups[groupIndex], ...data };
-    setGroups(groups);
+    setGroups(updatedGroups);
   };
 
   const deleteGroup = (index) => {
@@ -54,6 +55,21 @@ const AppProvider = ({ children }) => {
     newGroups[currentGroupIndex] = updatedGroup;
     setGroups(newGroups);
     closeSectionModal();
+  };
+
+  const updateSection = (sectionIndex, data) => {
+    const currentGroup = groups[currentGroupIndex];
+    const newSections = [...currentGroup.sections];
+    newSections[sectionIndex] = { ...newSections[sectionIndex], ...data };
+    const updatedGroup = {
+      ...currentGroup,
+      sections: newSections,
+    };
+
+    const newGroups = [...groups];
+    newGroups[currentGroupIndex] = updatedGroup;
+    setGroups(newGroups);
+    setIsEditMode(!isEditMode);
   };
 
   const deleteSection = (groupIndex, sectionIndex) => {
@@ -120,6 +136,7 @@ const AppProvider = ({ children }) => {
     updateData,
     setUpdateData,
     updateGroup,
+    updateSection,
   };
 
   return (

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
 
 import {
   DialogTitle,
@@ -8,23 +8,35 @@ import {
   DialogActions,
   Typography,
   Switch,
-} from '@mui/material';
-import Button from '@mui/material/Button';
+} from "@mui/material";
+import Button from "@mui/material/Button";
 
-const CreateSectionModal = ({ open, handleClose, onSubmit }) => {
-  const [sectionTitle, setSectionTitle] = useState('');
-  const [sectionDescription, setSectionDescription] = useState('');
+const CreateSectionModal = ({
+  open,
+  handleClose,
+  onEditSubmit,
+  onAddSubmit,
+  values = {},
+  currentSectionIndex,
+  isEditMode = false,
+}) => {
+  const [sectionTitle, setSectionTitle] = useState(values.sectionTitle);
+  const [sectionDescription, setSectionDescription] = useState(
+    values.sectionDescription
+  );
   const [activationSupported, setActivationSupported] = useState(false);
 
+  console.log({ sectionTitle });
+
   const resetFormData = () => {
-    setSectionTitle('');
-    setSectionDescription('');
+    setSectionTitle("");
+    setSectionDescription("");
     setActivationSupported(false);
   };
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
-      <DialogTitle>Create Section</DialogTitle>
+      <DialogTitle>{isEditMode ? "Edit " : "Create "} Section</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
@@ -66,15 +78,22 @@ const CreateSectionModal = ({ open, handleClose, onSubmit }) => {
         </Button>
         <Button
           onClick={() => {
-            onSubmit({
-              title: sectionTitle,
-              description: sectionDescription,
-              activationSupported,
-            });
+            isEditMode
+              ? onEditSubmit(currentSectionIndex, {
+                  title: sectionTitle,
+                  description: sectionDescription,
+                  activationSupported,
+                })
+              : onAddSubmit({
+                  title: sectionTitle,
+                  description: sectionDescription,
+                  activationSupported,
+                });
+            handleClose();
             resetFormData();
           }}
         >
-          Create
+          {isEditMode ? "Update" : "Create"}
         </Button>
       </DialogActions>
     </Dialog>

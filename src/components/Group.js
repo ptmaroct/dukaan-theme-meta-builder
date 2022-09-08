@@ -1,13 +1,18 @@
-import { Paper, Typography, Button, Box, Stack } from '@mui/material';
-import React from 'react';
-import { useAppContext } from '../context/AppProvider';
-import useModal from '../hooks/useModal';
-import ConfirmDialog from './ConfirmDialog';
-import Section from './Section';
+import { Paper, Typography, Button, Box, Stack } from "@mui/material";
+import React from "react";
+import { useAppContext } from "../context/AppProvider";
+import useModal from "../hooks/useModal";
+import ConfirmDialog from "./ConfirmDialog";
+import Section from "./Section";
 
 const Group = ({ data: { title, sections = [] }, index }) => {
-  const { deleteGroup, setCurrentGroupIndex, openSectionModal } =
-    useAppContext();
+  const {
+    deleteGroup,
+    setCurrentGroupIndex,
+    openSectionModal,
+    openGroupModal,
+    setIsEditMode,
+  } = useAppContext();
 
   const {
     isOpen: isConfirmModalOpen,
@@ -31,7 +36,15 @@ const Group = ({ data: { title, sections = [] }, index }) => {
         <Stack direction="row" alignItems="center" spacing={2}>
           <Typography variant="h4">{title}</Typography>
           <div>
-            <Button variant="outlined" size="small">
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={() => {
+                setCurrentGroupIndex(index);
+                setIsEditMode(true);
+                openGroupModal();
+              }}
+            >
               Edit
             </Button>
           </div>

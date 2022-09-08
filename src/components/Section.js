@@ -1,18 +1,24 @@
-import { Box, Button, Divider, Typography } from '@mui/material';
-import React from 'react';
-import { useAppContext } from '../context/AppProvider';
-import useModal from '../hooks/useModal';
-import ConfirmDialog from './ConfirmDialog';
+import { Box, Button, Divider, Stack, Typography } from "@mui/material";
+import React from "react";
+import { useAppContext } from "../context/AppProvider";
+import useModal from "../hooks/useModal";
+import ConfirmDialog from "./ConfirmDialog";
 
 const Section = ({ data, index, groupIndex }) => {
   const {
-    title = '',
-    description = '',
+    title = "",
+    description = "",
     activationSupported = false,
     fields = [],
   } = data;
-  const { setCurrentSectionIndex, openFieldModal, deleteSection } =
-    useAppContext();
+  const {
+    setCurrentSectionIndex,
+    openFieldModal,
+    updateSection,
+    deleteSection,
+    setIsEditMode,
+    openSectionModal,
+  } = useAppContext();
 
   const {
     isOpen: isConfirmModalOpen,
@@ -33,11 +39,26 @@ const Section = ({ data, index, groupIndex }) => {
   return (
     <Box
       sx={{ mb: 2 }}
-      style={{ border: 'solid 1px #ccc', padding: 8, borderRadius: 2 }}
+      style={{ border: "solid 1px #ccc", padding: 8, borderRadius: 2 }}
     >
       <div className="d-flex-c-s">
         <div>
-          <Typography variant="h6">{title}</Typography>
+          <Stack direction="row" spacing={2}>
+            <Typography variant="h6">{title}</Typography>
+            <div>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => {
+                  setCurrentSectionIndex(index);
+                  setIsEditMode(true);
+                  openSectionModal();
+                }}
+              >
+                Edit
+              </Button>
+            </div>
+          </Stack>
           <Typography variant="caption">{description}</Typography>
         </div>
         <div>

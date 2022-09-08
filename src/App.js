@@ -1,14 +1,14 @@
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
-import { Typography } from '@mui/material';
-import Group from './components/Group';
-import CreateGroupModal from './components/CreateGroupModal';
-import CreateSectionModal from './components/CreateSectionModal';
+import { Typography } from "@mui/material";
+import Group from "./components/Group";
+import CreateGroupModal from "./components/CreateGroupModal";
+import CreateSectionModal from "./components/CreateSectionModal";
 
-import './App.css';
-import CreateFieldModal from './components/CreateFieldModal';
-import { saveTemplateAsFile } from './utils';
-import { useAppContext } from './context/AppProvider';
+import "./App.css";
+import CreateFieldModal from "./components/CreateFieldModal";
+import { saveTemplateAsFile } from "./utils";
+import { useAppContext } from "./context/AppProvider";
 
 function App() {
   const {
@@ -24,6 +24,12 @@ function App() {
     closeSectionModal,
     isFieldModalOpen,
     closeFieldModal,
+    isEditMode,
+    setIsEditMode,
+    updateGroup,
+    currentGroupIndex,
+    currentSectionIndex,
+    updateSection,
   } = useAppContext();
 
   const handleImportConfigFile = (e) => {
@@ -40,7 +46,17 @@ function App() {
   };
 
   const handleClickDownload = () => {
-    saveTemplateAsFile('theme.json', groups);
+    saveTemplateAsFile("theme.json", groups);
+  };
+
+  const initialValues = {
+    groupName: groups[currentGroupIndex].title,
+    section: {
+      sectionTitle:
+        groups[currentGroupIndex].sections[currentSectionIndex].title,
+      sectionDescription:
+        groups[currentGroupIndex].sections[currentSectionIndex].description,
+    },
   };
 
   return (
@@ -78,13 +94,24 @@ function App() {
 
       <CreateGroupModal
         open={isGroupModalOpen}
-        handleClose={closeGroupModal}
-        onSubmit={addGroup}
+        handleClose={() => {
+          setIsEditMode(!isEditMode);
+          closeGroupModal();
+        }}
+        onAddSubmit={addGroup}
+        onEditSubmit={updateGroup}
+        isEditMode={isEditMode}
+        currentGroupIndex={currentGroupIndex}
+        values={initialValues}
       />
       <CreateSectionModal
         open={isSectionModalOpen}
         handleClose={closeSectionModal}
-        onSubmit={addSection}
+        onAddSubmit={addSection}
+        onEditSubmit={updateSection}
+        currentSectionIndex={currentSectionIndex}
+        values={initialValues.section}
+        isEditMode={isEditMode}
       />
       <CreateFieldModal
         open={isFieldModalOpen}
