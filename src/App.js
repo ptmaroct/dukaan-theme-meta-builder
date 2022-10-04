@@ -40,7 +40,8 @@ function App() {
   };
 
   const handleClickDownload = () => {
-    saveTemplateAsFile('theme.json', groups);
+    const themefile = { customConfig: true, config: groups };
+    saveTemplateAsFile('theme.json', themefile);
   };
 
   return (

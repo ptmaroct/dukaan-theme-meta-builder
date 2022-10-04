@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
+import React, { useState } from 'react';
+import TextField from '@mui/material/TextField';
+import { nanoid } from 'nanoid';
 
 import {
   DialogContentText,
@@ -7,11 +8,11 @@ import {
   Dialog,
   DialogContent,
   DialogActions,
-} from "@mui/material";
-import Button from "@mui/material/Button";
+} from '@mui/material';
+import Button from '@mui/material/Button';
 
 const CreateGroupModal = ({ open, handleClose, onSubmit }) => {
-  const [groupName, setGroupName] = useState("");
+  const [groupName, setGroupName] = useState('');
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
@@ -35,9 +36,9 @@ const CreateGroupModal = ({ open, handleClose, onSubmit }) => {
           onClick={() => {
             onSubmit({
               title: groupName,
-              key: groupName.replace(/\s/g, "-").toLowerCase(),
+              key: nanoid(),
             });
-            setGroupName("");
+            setGroupName('');
           }}
         >
           Create
