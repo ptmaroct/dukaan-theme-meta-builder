@@ -6,6 +6,8 @@ export const FIELD_TYPES = {
   TEXTAREA: 'textarea',
   BUTTON: 'button',
   IMAGE: 'image',
+  PRODUCTS: 'products',
+  CATEGORIES: 'categories',
 };
 
 export const FIELD_TYPES_DATA = {
@@ -55,6 +57,16 @@ export const FIELD_TYPES_DATA = {
   },
   [FIELD_TYPES.IMAGE]: {
     label: 'Image',
+    properties: [],
+    metaProperties: [],
+  },
+  [FIELD_TYPES.PRODUCTS]: {
+    label: 'Products',
+    properties: [],
+    metaProperties: [],
+  },
+  [FIELD_TYPES.CATEGORIES]: {
+    label: 'Categories',
     properties: [],
     metaProperties: [],
   },
