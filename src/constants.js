@@ -8,6 +8,8 @@ export const FIELD_TYPES = {
   IMAGE: 'image',
   PRODUCTS: 'products',
   CATEGORIES: 'categories',
+  CATEGORIES_PICKER: 'categories_picker',
+  PRODUCTS_PICKER: 'products_picker',
 };
 
 export const FIELD_TYPES_DATA = {
@@ -67,6 +69,16 @@ export const FIELD_TYPES_DATA = {
   },
   [FIELD_TYPES.CATEGORIES]: {
     label: 'Categories',
+    properties: [],
+    metaProperties: [],
+  },
+  [FIELD_TYPES.PRODUCTS_PICKER]: {
+    label: 'Products Picker',
+    properties: [],
+    metaProperties: [],
+  },
+  [FIELD_TYPES.CATEGORIES_PICKER]: {
+    label: 'Categories Picker',
     properties: [],
     metaProperties: [],
   },
